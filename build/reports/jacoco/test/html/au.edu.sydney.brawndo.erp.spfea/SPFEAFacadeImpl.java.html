@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SPFEAFacadeImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">A1</a> &gt; <a href="index.source.html" class="el_package">au.edu.sydney.brawndo.erp.spfea</a> &gt; <span class="el_source">SPFEAFacadeImpl.java</span></div><h1>SPFEAFacadeImpl.java</h1><pre class="source lang-java linenums">//package au.edu.sydney.brawndo.erp.spfea;
+//
+//import au.edu.sydney.brawndo.erp.todo.Task;
+//import au.edu.sydney.brawndo.erp.todo.ToDoList;
+//
+//import java.time.LocalDateTime;
+//import java.util.ArrayList;
+//import java.util.List;
+//
+//public class SPFEAFacadeImp implements SPFEAFacade{
+//    ToDoList toDoList;
+//    int taskNum;
+//    public SPFEAFacadeImp(){
+//
+//    }
+//    @Override
+//    public void setToDoProvider(ToDoList provider) {
+//        if(provider == null){
+//            throw new IllegalStateException();
+//        }
+//        this.toDoList = provider;
+//        taskNum = 0;
+//    }
+//
+//    @Override
+//    public Task addNewTask(LocalDateTime dateTime, String description, String location) throws IllegalArgumentException, IllegalStateException {
+//        ArrayList&lt;String&gt; locationLs = new ArrayList&lt;&gt;();
+//        locationLs.add(&quot;HOME OFFICE&quot;);
+//        locationLs.add(&quot;CUSTOMER SITE&quot;);
+//        locationLs.add(&quot;MOBILE&quot;);
+//        if(!locationLs.contains(location)){
+//            throw new IllegalArgumentException();
+//        }
+//        if(dateTime == null || dateTime.isBefore(LocalDateTime.now()) || description == null || description.equals(&quot;&quot;)){
+//            throw new IllegalArgumentException();
+//        }
+//
+//        return toDoList.add(taskNum++,dateTime,location,description);
+//
+//    }
+//
+//    @Override
+//    public void completeTask(int id) throws IllegalArgumentException, IllegalStateException {
+////        for (int i = 0; i &lt; toDoList.findAll().size(); i++) {
+////            System.out.println(&quot;Hello&quot;);
+////            if (toDoList.findAll().get(i).getID() == id) {
+////                toDoList.findAll().get(i).complete();
+////
+////            }
+////        }
+//
+//        Task t = toDoList.findOne(id);
+//        if(t == null){
+//            throw new IllegalArgumentException();
+//        }
+//        if(t.isCompleted()){
+//            throw new IllegalStateException();
+//        }
+//        t.complete();
+//    }
+//
+//    @Override
+//    public List&lt;Task&gt; getAllTasks() throws IllegalStateException {
+//        if(toDoList == null){
+//            throw new IllegalStateException();
+//        }
+//        return toDoList.findAll();
+//    }
+//
+//    @Override
+//    public int addCustomer(String fName, String lName, String phone, String email) throws IllegalArgumentException {
+//        return 0;
+//    }
+//
+//    @Override
+//    public Integer getCustomerID(String fName, String lName) throws IllegalArgumentException {
+//        return null;
+//    }
+//
+//    @Override
+//    public List&lt;String&gt; getAllCustomers() {
+//        return null;
+//    }
+//
+//    @Override
+//    public String getCustomerPhone(int id) throws IllegalArgumentException {
+//        return null;
+//    }
+//
+//    @Override
+//    public void setCustomerPhone(int id, String phone) throws IllegalArgumentException {
+//
+//    }
+//
+//    @Override
+//    public String getCustomerEmail(int id) throws IllegalArgumentException {
+//        return null;
+//    }
+//
+//    @Override
+//    public void setCustomerEmail(int id, String email) throws IllegalArgumentException {
+//
+//    }
+//
+//    @Override
+//    public void removeCustomer(int id) throws IllegalArgumentException {
+//
+//    }
+//}
+
+package au.edu.sydney.brawndo.erp.spfea;
+
+import au.edu.sydney.brawndo.erp.todo.Task;
+import au.edu.sydney.brawndo.erp.todo.ToDoList;
+
+import java.time.LocalDateTime;
+import java.util.*;
+
+public class SPFEAFacadeImpl implements SPFEAFacade{
+    int taskNum;
+<span class="fc" id="L121">    private ToDoList provider = null;</span>
+    private Map&lt;Integer, Map&lt;String, String&gt;&gt; customers;
+    private int nextID;
+<span class="fc" id="L124">    public SPFEAFacadeImpl(){</span>
+<span class="fc" id="L125">        customers = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L126">        nextID = 1;</span>
+<span class="fc" id="L127">    }</span>
+
+    @Override
+    public void setToDoProvider(ToDoList provider) {
+<span class="fc" id="L131">        this.provider = provider;</span>
+<span class="fc" id="L132">        taskNum = 0;</span>
+<span class="fc" id="L133">    }</span>
+
+    @Override
+    public Task addNewTask(LocalDateTime dateTime, String description, String location) throws IllegalArgumentException, IllegalStateException {
+<span class="fc bfc" id="L137" title="All 2 branches covered.">        if(provider == null){</span>
+<span class="fc" id="L138">            throw new IllegalStateException();</span>
+        }
+
+<span class="fc bfc" id="L141" title="All 4 branches covered.">        if(dateTime == null || dateTime.isBefore(LocalDateTime.now())){</span>
+<span class="fc" id="L142">            throw new IllegalArgumentException();</span>
+        }
+
+<span class="fc bfc" id="L145" title="All 4 branches covered.">        if(description == null || description.isEmpty()){</span>
+<span class="fc" id="L146">            throw new IllegalArgumentException();</span>
+        }
+
+<span class="fc bfc" id="L149" title="All 2 branches covered.">        if(!Arrays.asList(&quot;HOME OFFICE&quot;, &quot;CUSTOMER SITE&quot;, &quot;MOBILE&quot;).contains(location)){</span>
+<span class="fc" id="L150">            throw new IllegalArgumentException();</span>
+        }
+
+<span class="fc" id="L153">        return provider.add(taskNum++, dateTime, location, description);</span>
+    }
+
+    @Override
+    public void completeTask(int id) throws IllegalArgumentException, IllegalStateException {
+<span class="fc bfc" id="L158" title="All 2 branches covered.">        if(provider == null){</span>
+<span class="fc" id="L159">            throw new IllegalStateException();</span>
+        }
+
+<span class="fc" id="L162">        Task t = provider.findOne(id);</span>
+<span class="fc bfc" id="L163" title="All 2 branches covered.">        if(t == null){</span>
+<span class="fc" id="L164">            throw new IllegalArgumentException();</span>
+        }
+
+<span class="fc bfc" id="L167" title="All 2 branches covered.">        if(t.isCompleted()){</span>
+<span class="fc" id="L168">            throw new IllegalStateException();</span>
+        }
+
+<span class="fc" id="L171">        t.complete();</span>
+<span class="fc" id="L172">    }</span>
+
+    @Override
+    public List&lt;Task&gt; getAllTasks() throws IllegalStateException {
+<span class="fc bfc" id="L176" title="All 2 branches covered.">        if(provider == null){</span>
+<span class="fc" id="L177">            throw new IllegalStateException();</span>
+        }
+
+<span class="fc" id="L180">        return provider.findAll();</span>
+    }
+
+    @Override
+    public int addCustomer(String fName, String lName, String phone, String email) throws IllegalArgumentException {
+<span class="fc bfc" id="L185" title="All 8 branches covered.">        if(fName == null || fName.isEmpty() || lName == null || lName.isEmpty()){</span>
+<span class="fc" id="L186">            throw new IllegalArgumentException();</span>
+        }
+<span class="fc bfc" id="L188" title="All 4 branches covered.">        if (email != null &amp;&amp; email.isEmpty()) {</span>
+<span class="fc" id="L189">            throw new IllegalArgumentException();</span>
+        }
+<span class="fc bfc" id="L191" title="All 4 branches covered.">        if((phone == null) &amp;&amp; (email == null)){</span>
+<span class="fc" id="L192">            throw new IllegalArgumentException();</span>
+        }
+
+<span class="pc bpc" id="L195" title="1 of 6 branches missed.">        if(phone != null &amp;&amp; (!phone.matches(&quot;^[()+\\d]*$&quot;) || phone.isEmpty())){</span>
+<span class="fc" id="L196">            throw new IllegalArgumentException();</span>
+        }
+
+<span class="fc bfc" id="L199" title="All 4 branches covered.">        if (email != null &amp;&amp; (!email.contains(&quot;@&quot;))) {</span>
+<span class="fc" id="L200">            throw new IllegalArgumentException();</span>
+        }
+
+
+
+<span class="fc bfc" id="L205" title="All 2 branches covered.">        for(Map&lt;String, String&gt; info : customers.values()){</span>
+<span class="pc bpc" id="L206" title="1 of 4 branches missed.">            if(info.get(&quot;fName&quot;).equals(fName) &amp;&amp; info.get(&quot;lName&quot;).equals(lName)){</span>
+<span class="fc" id="L207">                throw new IllegalArgumentException();</span>
+            }
+<span class="fc" id="L209">        }</span>
+
+<span class="fc" id="L211">        int id = nextID;</span>
+<span class="fc" id="L212">        nextID++;</span>
+
+<span class="fc" id="L214">        Map&lt;String, String&gt; custInfo = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L215">        custInfo.put(&quot;fName&quot;, fName);</span>
+<span class="fc" id="L216">        custInfo.put(&quot;lName&quot;, lName);</span>
+<span class="fc bfc" id="L217" title="All 2 branches covered.">        if(phone != null){</span>
+<span class="fc" id="L218">            custInfo.put(&quot;phone&quot;, phone);</span>
+        }
+
+<span class="fc bfc" id="L221" title="All 2 branches covered.">        if(email != null){</span>
+<span class="fc" id="L222">            custInfo.put(&quot;email&quot;, email);</span>
+        }
+
+<span class="fc" id="L225">        customers.put(id, custInfo);</span>
+
+<span class="fc" id="L227">        return id;</span>
+    }
+
+    @Override
+    public Integer getCustomerID(String fName, String lName) throws IllegalArgumentException {
+<span class="fc bfc" id="L232" title="All 8 branches covered.">        if(fName == null || fName.isEmpty() || lName == null || lName.isEmpty()){</span>
+<span class="fc" id="L233">            throw new IllegalArgumentException();</span>
+        }
+
+<span class="fc bfc" id="L236" title="All 2 branches covered.">        for(Map.Entry&lt;Integer, Map&lt;String, String&gt;&gt; entry : customers.entrySet()){</span>
+<span class="fc" id="L237">            Map&lt;String, String&gt; info = entry.getValue();</span>
+<span class="pc bpc" id="L238" title="1 of 4 branches missed.">            if(info.get(&quot;fName&quot;).equals(fName) &amp;&amp; info.get(&quot;lName&quot;).equals(lName)){</span>
+<span class="fc" id="L239">                return entry.getKey();</span>
+            }
+<span class="fc" id="L241">        }</span>
+
+<span class="fc" id="L243">        return null;</span>
+    }
+
+    @Override
+    public List&lt;String&gt; getAllCustomers() {
+<span class="fc" id="L248">        List&lt;String&gt; names = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L249" title="All 2 branches covered.">        for(Map&lt;String, String&gt; info : customers.values()){</span>
+<span class="fc" id="L250">            String name = info.get(&quot;lName&quot;) + &quot;, &quot; + info.get(&quot;fName&quot;);</span>
+<span class="fc" id="L251">            names.add(name);</span>
+<span class="fc" id="L252">        }</span>
+<span class="fc" id="L253">        return names;</span>
+    }
+
+    @Override
+    public String getCustomerPhone(int id) throws IllegalArgumentException {
+<span class="fc bfc" id="L258" title="All 2 branches covered.">        if(!customers.containsKey(id)){</span>
+<span class="fc" id="L259">            throw new IllegalArgumentException();</span>
+        }
+
+<span class="fc" id="L262">        Map&lt;String, String&gt; info = customers.get(id);</span>
+<span class="fc" id="L263">        return info.get(&quot;phone&quot;);</span>
+    }
+
+    @Override
+    public void setCustomerPhone(int id, String phone) throws IllegalArgumentException {
+<span class="fc bfc" id="L268" title="All 2 branches covered.">        if(!customers.containsKey(id)){</span>
+<span class="fc" id="L269">            throw new IllegalArgumentException();</span>
+        }
+
+<span class="fc" id="L272">        Map&lt;String, String&gt; info = customers.get(id);</span>
+
+<span class="pc bpc" id="L274" title="3 of 4 branches missed.">        if(phone == null &amp;&amp; info.get(&quot;email&quot;) == null){</span>
+<span class="nc" id="L275">            throw new IllegalArgumentException();</span>
+        }
+
+<span class="pc bpc" id="L278" title="2 of 6 branches missed.">        if(phone != null &amp;&amp; (phone.isEmpty() || !phone.matches(&quot;^[()+\\d]*$&quot;))){</span>
+<span class="fc" id="L279">            throw new IllegalArgumentException();</span>
+        }
+
+<span class="fc" id="L282">        info.put(&quot;phone&quot;, phone);</span>
+<span class="fc" id="L283">    }</span>
+
+    @Override
+    public String getCustomerEmail(int id) throws IllegalArgumentException {
+<span class="fc bfc" id="L287" title="All 2 branches covered.">        if(!customers.containsKey(id)){</span>
+<span class="fc" id="L288">            throw new IllegalArgumentException();</span>
+        }
+
+<span class="fc" id="L291">        Map&lt;String, String&gt; info = customers.get(id);</span>
+<span class="fc" id="L292">        return info.get(&quot;email&quot;);</span>
+    }
+
+    @Override
+    public void setCustomerEmail(int id, String email) throws IllegalArgumentException {
+<span class="fc bfc" id="L297" title="All 2 branches covered.">        if(!customers.containsKey(id)){</span>
+<span class="fc" id="L298">            throw new IllegalArgumentException();</span>
+        }
+
+<span class="fc" id="L301">        Map&lt;String, String&gt; info = customers.get(id);</span>
+
+<span class="pc bpc" id="L303" title="3 of 4 branches missed.">        if(email == null &amp;&amp; info.get(&quot;phone&quot;) == null){</span>
+<span class="nc" id="L304">            throw new IllegalArgumentException();</span>
+        }
+
+<span class="pc bpc" id="L307" title="1 of 4 branches missed.">        if(email != null &amp;&amp; (!email.contains(&quot;@&quot;))){</span>
+<span class="fc" id="L308">            throw new IllegalArgumentException();</span>
+        }
+
+<span class="fc" id="L311">        info.put(&quot;email&quot;, email);</span>
+<span class="fc" id="L312">    }</span>
+
+    @Override
+    public void removeCustomer(int id) throws IllegalArgumentException {
+<span class="fc bfc" id="L316" title="All 2 branches covered.">        if(!customers.containsKey(id)){</span>
+<span class="fc" id="L317">            throw new IllegalArgumentException();</span>
+        }
+
+<span class="fc" id="L320">        customers.remove(id);</span>
+<span class="fc" id="L321">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

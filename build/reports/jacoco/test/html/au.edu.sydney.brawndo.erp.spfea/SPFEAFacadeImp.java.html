@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SPFEAFacadeImp.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">A1</a> &gt; <a href="index.source.html" class="el_package">au.edu.sydney.brawndo.erp.spfea</a> &gt; <span class="el_source">SPFEAFacadeImp.java</span></div><h1>SPFEAFacadeImp.java</h1><pre class="source lang-java linenums">package au.edu.sydney.brawndo.erp.spfea;
+
+import au.edu.sydney.brawndo.erp.todo.Task;
+import au.edu.sydney.brawndo.erp.todo.ToDoList;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+public class SPFEAFacadeImp implements SPFEAFacade{
+<span class="nc" id="L10">    public SPFEAFacadeImp(){</span>
+
+<span class="nc" id="L12">    }</span>
+    @Override
+    public void setToDoProvider(ToDoList provider) {
+
+<span class="nc" id="L16">    }</span>
+
+    @Override
+    public Task addNewTask(LocalDateTime dateTime, String description, String location) throws IllegalArgumentException, IllegalStateException {
+<span class="nc" id="L20">        return null;</span>
+    }
+
+    @Override
+    public void completeTask(int id) throws IllegalArgumentException, IllegalStateException {
+
+<span class="nc" id="L26">    }</span>
+
+    @Override
+    public List&lt;Task&gt; getAllTasks() throws IllegalStateException {
+<span class="nc" id="L30">        return null;</span>
+    }
+
+    @Override
+    public int addCustomer(String fName, String lName, String phone, String email) throws IllegalArgumentException {
+<span class="nc" id="L35">        return 0;</span>
+    }
+
+    @Override
+    public Integer getCustomerID(String fName, String lName) throws IllegalArgumentException {
+<span class="nc" id="L40">        return null;</span>
+    }
+
+    @Override
+    public List&lt;String&gt; getAllCustomers() {
+<span class="nc" id="L45">        return null;</span>
+    }
+
+    @Override
+    public String getCustomerPhone(int id) throws IllegalArgumentException {
+<span class="nc" id="L50">        return null;</span>
+    }
+
+    @Override
+    public void setCustomerPhone(int id, String phone) throws IllegalArgumentException {
+
+<span class="nc" id="L56">    }</span>
+
+    @Override
+    public String getCustomerEmail(int id) throws IllegalArgumentException {
+<span class="nc" id="L60">        return null;</span>
+    }
+
+    @Override
+    public void setCustomerEmail(int id, String email) throws IllegalArgumentException {
+
+<span class="nc" id="L66">    }</span>
+
+    @Override
+    public void removeCustomer(int id) throws IllegalArgumentException {
+
+<span class="nc" id="L71">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="au.edu.sydney.brawndo.erp.spfea.SPFEAFacadeImplTest" tests="24" skipped="0" failures="0" errors="0" timestamp="2023-03-23T12:08:01" hostname="DESKTOP-V593GE4" time="0.963">
+  <properties/>
+  <testcase name="getCustomerEmailTest()" classname="au.edu.sydney.brawndo.erp.spfea.SPFEAFacadeImplTest" time="0.85"/>
+  <testcase name="getCustomerPhoneNullTest()" classname="au.edu.sydney.brawndo.erp.spfea.SPFEAFacadeImplTest" time="0.002"/>
+  <testcase name="setCustomerPhoneThrowTest()" classname="au.edu.sydney.brawndo.erp.spfea.SPFEAFacadeImplTest" time="0.004"/>
+  <testcase name="removeCustomerThrowTest()" classname="au.edu.sydney.brawndo.erp.spfea.SPFEAFacadeImplTest" time="0.002"/>
+  <testcase name="setCustomerPhoneTest()" classname="au.edu.sydney.brawndo.erp.spfea.SPFEAFacadeImplTest" time="0.004"/>
+  <testcase name="getAllTaskThrow()" classname="au.edu.sydney.brawndo.erp.spfea.SPFEAFacadeImplTest" time="0.001"/>
+  <testcase name="getCustomerEmailThrowTest()" classname="au.edu.sydney.brawndo.erp.spfea.SPFEAFacadeImplTest" time="0.001"/>
+  <testcase name="getAllTasksTest()" classname="au.edu.sydney.brawndo.erp.spfea.SPFEAFacadeImplTest" time="0.037"/>
+  <testcase name="addCustomerTest()" classname="au.edu.sydney.brawndo.erp.spfea.SPFEAFacadeImplTest" time="0.007"/>
+  <testcase name="testNull()" classname="au.edu.sydney.brawndo.erp.spfea.SPFEAFacadeImplTest" time="0.002"/>
+  <testcase name="addNewTaskThrowTest()" classname="au.edu.sydney.brawndo.erp.spfea.SPFEAFacadeImplTest" time="0.002"/>
+  <testcase name="getCustomerPhoneTest()" classname="au.edu.sydney.brawndo.erp.spfea.SPFEAFacadeImplTest" time="0.001"/>
+  <testcase name="completeTaskTest()" classname="au.edu.sydney.brawndo.erp.spfea.SPFEAFacadeImplTest" time="0.014"/>
+  <testcase name="removeCustomerTest()" classname="au.edu.sydney.brawndo.erp.spfea.SPFEAFacadeImplTest" time="0.001"/>
+  <testcase name="setCustomerEmailThrowTest()" classname="au.edu.sydney.brawndo.erp.spfea.SPFEAFacadeImplTest" time="0.002"/>
+  <testcase name="addCustomerExceptionTest()" classname="au.edu.sydney.brawndo.erp.spfea.SPFEAFacadeImplTest" time="0.002"/>
+  <testcase name="getCustomerID_success()" classname="au.edu.sydney.brawndo.erp.spfea.SPFEAFacadeImplTest" time="0.001"/>
+  <testcase name="getAllCustomersTest()" classname="au.edu.sydney.brawndo.erp.spfea.SPFEAFacadeImplTest" time="0.005"/>
+  <testcase name="completeTaskThrowTest()" classname="au.edu.sydney.brawndo.erp.spfea.SPFEAFacadeImplTest" time="0.004"/>
+  <testcase name="nullAddTest()" classname="au.edu.sydney.brawndo.erp.spfea.SPFEAFacadeImplTest" time="0.002"/>
+  <testcase name="addNewTask_success()" classname="au.edu.sydney.brawndo.erp.spfea.SPFEAFacadeImplTest" time="0.003"/>
+  <testcase name="setCustomerEmailTest()" classname="au.edu.sydney.brawndo.erp.spfea.SPFEAFacadeImplTest" time="0.001"/>
+  <testcase name="getCustomerPhoneThrowTest()" classname="au.edu.sydney.brawndo.erp.spfea.SPFEAFacadeImplTest" time="0.002"/>
+  <testcase name="getCustomerIDThrow()" classname="au.edu.sydney.brawndo.erp.spfea.SPFEAFacadeImplTest" time="0.001"/>
+  <system-out><![CDATA[[b, a]
+[b, a]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

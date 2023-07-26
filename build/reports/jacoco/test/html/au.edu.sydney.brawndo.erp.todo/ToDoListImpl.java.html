@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ToDoListImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">A1</a> &gt; <a href="index.source.html" class="el_package">au.edu.sydney.brawndo.erp.todo</a> &gt; <span class="el_source">ToDoListImpl.java</span></div><h1>ToDoListImpl.java</h1><pre class="source lang-java linenums">package au.edu.sydney.brawndo.erp.todo;
+
+import java.lang.reflect.Array;
+import java.lang.reflect.Field;
+import java.time.LocalDateTime;
+import java.util.*;
+
+public class ToDoListImpl implements ToDoList{
+    private static final int MAXTASK = Integer.MAX_VALUE;
+<span class="fc" id="L10">    private ArrayList&lt;Task&gt; taskList = null;</span>
+    // store the previous added task
+<span class="fc" id="L12">    private Task previousTask = null;</span>
+
+<span class="fc" id="L14">    public ToDoListImpl(){</span>
+<span class="fc" id="L15">        this.taskList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L16">    }</span>
+
+    @Override
+    public Task add(Integer id, LocalDateTime dateTime, String location, String description) throws IllegalArgumentException, IllegalStateException {
+<span class="fc bfc" id="L20" title="All 8 branches covered.">        if (dateTime == null || location == null || location.isEmpty() || location.length() &gt; 256) {</span>
+<span class="fc" id="L21">            throw new IllegalArgumentException(&quot;Invalid parameters.&quot;);</span>
+        }
+        // check if the id already in the ToDoList
+<span class="fc bfc" id="L24" title="All 2 branches covered.">        if (id != null) {</span>
+<span class="fc" id="L25">            int exist = 0;</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">            for(Task each: taskList){</span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">                if(each.getID() == id){</span>
+<span class="fc" id="L28">                    exist = 1;</span>
+<span class="fc" id="L29">                    break;</span>
+                }
+<span class="fc" id="L31">            }</span>
+<span class="fc bfc" id="L32" title="All 2 branches covered.">            if(exist == 1){</span>
+<span class="fc" id="L33">                throw new IllegalArgumentException(&quot;Task with the given id already exists in the ToDoList.&quot;);</span>
+            }
+
+        }
+        //check if id is null, and generate an integer
+<span class="fc" id="L38">        int isNull = 0;</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">        if(id == null){</span>
+<span class="fc" id="L40">            isNull = 1;</span>
+<span class="fc" id="L41">            Random rand = new Random();</span>
+<span class="fc" id="L42">            int num =  rand.nextInt(MAXTASK);</span>
+<span class="fc" id="L43">            int reroll = 0;</span>
+            while(true) {
+                //if generated integer duplicated regenerate the integer.
+<span class="fc bfc" id="L46" title="All 2 branches covered.">                for (Task each : taskList) {</span>
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">                    if (each.getID() == num) {</span>
+<span class="nc" id="L48">                        num = rand.nextInt(MAXTASK);</span>
+<span class="nc" id="L49">                        reroll = 1;</span>
+<span class="nc" id="L50">                        break;</span>
+                    }
+<span class="fc" id="L52">                }</span>
+                // if unique generated integer break the loop.
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">                if(reroll == 0){</span>
+<span class="fc" id="L55">                    break;</span>
+                }
+<span class="nc" id="L57">                reroll = 0;</span>
+            }
+<span class="fc" id="L59">            id = num;</span>
+        }
+<span class="fc bfc" id="L61" title="All 4 branches covered.">        if(isNull == 1 &amp;&amp; previousTask != null){</span>
+<span class="fc" id="L62">            throw new IllegalStateException(&quot;Cannot add a task with a null id after adding a non-null id task.&quot;);</span>
+        }
+<span class="fc" id="L64">        Task task = new TaskImpl(id, dateTime, location, description);</span>
+<span class="fc" id="L65">        taskList.add(task);</span>
+<span class="fc bfc" id="L66" title="All 4 branches covered.">        if(isNull != 1 &amp;&amp; previousTask == null){</span>
+<span class="fc" id="L67">            previousTask = task;</span>
+        }
+<span class="fc" id="L69">        return task;</span>
+    }
+
+    @Override
+    public boolean remove(int id) {
+<span class="fc" id="L74">        boolean remove = false;</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        for(Task each: taskList){</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">            if(each.getID() == id){</span>
+<span class="fc" id="L77">                taskList.remove(each);</span>
+<span class="fc" id="L78">                remove = true;</span>
+<span class="fc" id="L79">                break;</span>
+            }
+<span class="fc" id="L81">        }</span>
+<span class="fc" id="L82">        return remove;</span>
+
+
+    }
+
+    @Override
+    public Task findOne(int id) {
+<span class="fc bfc" id="L89" title="All 2 branches covered.">        for(Task each: taskList){</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">            if(each.getID() == id){</span>
+<span class="fc" id="L91">                return each;</span>
+            }
+<span class="fc" id="L93">        }</span>
+<span class="fc" id="L94">        return null;</span>
+    }
+
+    @Override
+    public List&lt;Task&gt; findAll() {
+<span class="fc" id="L99">        ArrayList&lt;Task&gt; copyList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L100">        int counter = 0;</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">        for(Task task: taskList){</span>
+<span class="fc" id="L102">            copyList.add(counter,task);</span>
+<span class="fc" id="L103">            counter++;</span>
+<span class="fc" id="L104">        }</span>
+<span class="fc" id="L105">        return copyList;</span>
+    }
+
+    @Override
+    public List&lt;Task&gt; findAll(boolean completed) {
+<span class="fc" id="L110">        ArrayList&lt;Task&gt; result = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L111" title="All 2 branches covered.">        for(Task each: taskList){</span>
+<span class="fc bfc" id="L112" title="All 2 branches covered.">            if(each.isCompleted() == completed){</span>
+<span class="fc" id="L113">                result.add(each);</span>
+            }
+<span class="fc" id="L115">        }</span>
+<span class="fc" id="L116">        return result;</span>
+    }
+
+    @Override
+    public List&lt;Task&gt; findAll(LocalDateTime from, LocalDateTime to, Boolean completed) throws IllegalArgumentException {
+<span class="fc bfc" id="L121" title="All 6 branches covered.">        if (from != null &amp;&amp; to != null &amp;&amp; to.isBefore(from) ) {</span>
+<span class="fc" id="L122">            throw new IllegalArgumentException(&quot;To must later than from date&quot;);</span>
+        }
+<span class="fc bfc" id="L124" title="All 6 branches covered.">        if((from != null &amp;&amp; to != null) &amp;&amp; from == to){</span>
+<span class="fc" id="L125">            throw new IllegalArgumentException(&quot;To must later than from date&quot;);</span>
+        }
+
+
+<span class="fc" id="L129">        List&lt;Task&gt; result = new ArrayList&lt;&gt;();</span>
+
+<span class="fc bfc" id="L131" title="All 4 branches covered.">        if (to != null &amp;&amp; from != null) {</span>
+<span class="fc bfc" id="L132" title="All 2 branches covered.">            for (Task each : taskList) {</span>
+<span class="pc bpc" id="L133" title="1 of 4 branches missed.">                if (each.getDateTime().isAfter(from) &amp;&amp; each.getDateTime().isBefore(to)) {</span>
+<span class="fc" id="L134">                    result.add(each);</span>
+                }
+<span class="fc" id="L136">            }</span>
+<span class="fc" id="L137">            return result;</span>
+        }else {
+<span class="fc bfc" id="L139" title="All 4 branches covered.">            if (from == null &amp;&amp; to == null){</span>
+//                return findAll(); // need change
+<span class="fc" id="L141">                ArrayList&lt;Task&gt; copyList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L142">                int index = 0;</span>
+<span class="fc bfc" id="L143" title="All 2 branches covered.">                for(Task task: taskList){</span>
+<span class="fc" id="L144">                    copyList.add(index, task);</span>
+<span class="fc" id="L145">                    index++;</span>
+<span class="fc" id="L146">                }</span>
+<span class="fc" id="L147">                return copyList;</span>
+
+<span class="fc bfc" id="L149" title="All 2 branches covered.">            }else if(to == null){</span>
+<span class="fc bfc" id="L150" title="All 2 branches covered.">                for(Task each: taskList){</span>
+<span class="fc bfc" id="L151" title="All 2 branches covered.">                    if(each.getDateTime().isAfter(from)){</span>
+<span class="fc" id="L152">                        result.add(each);</span>
+                    }
+<span class="fc" id="L154">                }</span>
+            }else{
+<span class="fc bfc" id="L156" title="All 2 branches covered.">                for(Task each: taskList){</span>
+<span class="fc bfc" id="L157" title="All 2 branches covered.">                    if(each.getDateTime().isBefore(to)){</span>
+<span class="fc" id="L158">                        result.add(each);</span>
+                    }
+<span class="fc" id="L160">                }</span>
+            }
+        }
+
+<span class="fc bfc" id="L164" title="All 2 branches covered.">        if(completed == null){</span>
+<span class="fc" id="L165">            return result;</span>
+        }else{
+<span class="fc bfc" id="L167" title="All 2 branches covered.">            result.removeIf(each -&gt; each.isCompleted() != completed);</span>
+        }
+
+<span class="fc" id="L170">        return result;</span>
+    }
+
+    @Override
+    public List&lt;Task&gt; findAll(Map&lt;Task.Field, String&gt; params, LocalDateTime from, LocalDateTime to, Boolean completed, boolean andSearch) throws IllegalArgumentException {
+<span class="fc bfc" id="L175" title="All 6 branches covered.">        if (from != null &amp;&amp; to != null &amp;&amp; to.isBefore(from)) {</span>
+<span class="fc" id="L176">            throw new IllegalArgumentException(&quot;To must later than from date&quot;);</span>
+        }
+<span class="fc bfc" id="L178" title="All 6 branches covered.">        if((from != null &amp;&amp; to != null) &amp;&amp; from == to){</span>
+<span class="fc" id="L179">            throw new IllegalArgumentException(&quot;To must later than from date&quot;);</span>
+        }
+
+<span class="fc" id="L182">        List&lt;Task&gt; dateFilter = new ArrayList&lt;&gt;();</span>
+
+        //filter date first
+<span class="fc" id="L185">        boolean filteredDate = true;</span>
+<span class="fc bfc" id="L186" title="All 4 branches covered.">        if(from == null &amp;&amp; to == null){</span>
+<span class="fc" id="L187">            filteredDate = false;</span>
+        }else{
+<span class="fc bfc" id="L189" title="All 4 branches covered.">            if(from != null &amp;&amp; to != null){</span>
+<span class="fc bfc" id="L190" title="All 2 branches covered.">                for(Task each: taskList){</span>
+<span class="fc bfc" id="L191" title="All 4 branches covered.">                    if(each.getDateTime().isAfter(from) &amp;&amp; each.getDateTime().isBefore(to)){</span>
+<span class="fc" id="L192">                        dateFilter.add(each);</span>
+                    }
+<span class="fc" id="L194">                }</span>
+<span class="fc bfc" id="L195" title="All 2 branches covered.">            }else if(from == null){</span>
+<span class="fc bfc" id="L196" title="All 2 branches covered.">                for(Task each: taskList){</span>
+<span class="fc bfc" id="L197" title="All 2 branches covered.">                    if(each.getDateTime().isBefore(to)){</span>
+<span class="fc" id="L198">                        dateFilter.add(each);</span>
+                    }
+<span class="fc" id="L200">                }</span>
+            }else{
+<span class="fc bfc" id="L202" title="All 2 branches covered.">                for(Task each: taskList){</span>
+<span class="fc bfc" id="L203" title="All 2 branches covered.">                    if(each.getDateTime().isAfter(from)){</span>
+<span class="fc" id="L204">                        dateFilter.add(each);</span>
+                    }
+<span class="fc" id="L206">                }</span>
+            }
+        }
+        //filter complete
+<span class="fc" id="L210">        List&lt;Task&gt; completeFilter = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L211" title="All 2 branches covered.">        if(completed != null){</span>
+<span class="fc bfc" id="L212" title="All 2 branches covered.">            for(Task each: taskList){</span>
+<span class="fc bfc" id="L213" title="All 2 branches covered.">                if(each.isCompleted() == completed){</span>
+<span class="fc" id="L214">                    completeFilter.add(each);</span>
+                }
+<span class="fc" id="L216">            }</span>
+        }
+        //filter param
+<span class="fc" id="L219">        List&lt;Task&gt; paramFilter = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L220" title="All 2 branches covered.">        if(params != null) {</span>
+<span class="fc bfc" id="L221" title="All 2 branches covered.">            if(params.entrySet().size() == 0){</span>
+<span class="fc" id="L222">                throw new IllegalArgumentException(&quot;Param value cannot be null&quot;);</span>
+            }
+<span class="fc bfc" id="L224" title="All 2 branches covered.">            if(params.entrySet().size() == 1){</span>
+<span class="fc" id="L225">                Iterator&lt;Map.Entry&lt;Task.Field, String&gt;&gt; iterator = params.entrySet().iterator();</span>
+<span class="fc" id="L226">                Map.Entry&lt;Task.Field, String&gt; entry = iterator.next();</span>
+<span class="fc" id="L227">                Task.Field field = entry.getKey();</span>
+<span class="fc" id="L228">                String value = entry.getValue();</span>
+<span class="pc bpc" id="L229" title="1 of 4 branches missed.">                if (value == null || field == null) {</span>
+<span class="fc" id="L230">                    throw new IllegalArgumentException(&quot;Param value cannot be null&quot;);</span>
+                }
+<span class="fc bfc" id="L232" title="All 2 branches covered.">                for (Task each : taskList) {</span>
+<span class="fc bfc" id="L233" title="All 2 branches covered.">                    if (each.getField(field).contains(value)) {</span>
+<span class="fc" id="L234">                        paramFilter.add(each);</span>
+                    }
+<span class="fc" id="L236">                }</span>
+<span class="fc" id="L237">            }else{</span>
+<span class="fc" id="L238">                Iterator&lt;Map.Entry&lt;Task.Field, String&gt;&gt; iterator = params.entrySet().iterator();</span>
+<span class="fc" id="L239">                Map.Entry&lt;Task.Field, String&gt; entry = iterator.next();</span>
+<span class="fc" id="L240">                Task.Field field1 = entry.getKey();</span>
+<span class="fc" id="L241">                String value1 = entry.getValue();</span>
+<span class="fc" id="L242">                Map.Entry&lt;Task.Field, String&gt; entry2 = iterator.next();</span>
+<span class="fc" id="L243">                Task.Field field2 = entry2.getKey();</span>
+<span class="fc" id="L244">                String value2 = entry2.getValue();</span>
+<span class="pc bpc" id="L245" title="3 of 8 branches missed.">                if (value1 == null || field1 == null || value2 == null || field2 == null) {</span>
+<span class="fc" id="L246">                    throw new IllegalArgumentException(&quot;Param value cannot be null&quot;);</span>
+                }
+<span class="fc bfc" id="L248" title="All 2 branches covered.">                for (Task each : taskList) {</span>
+<span class="fc bfc" id="L249" title="All 4 branches covered.">                    if (each.getField(field1).contains(value1) &amp;&amp; each.getField(field2).contains(value2)) {</span>
+<span class="fc" id="L250">                        paramFilter.add(each);</span>
+                    }
+<span class="fc" id="L252">                }</span>
+//                for (Map.Entry&lt;Task.Field, String&gt; entry : params.entrySet()) {
+//                    Task.Field field = entry.getKey();
+//                    String value = entry.getValue();
+//                    if (value == null || field == null) {
+//                        throw new IllegalArgumentException(&quot;Param value cannot be null&quot;);
+//                    }
+//                    for (Task each : taskList) {
+//                        if (each.getField(field).contains(value)) {
+//                            paramFilter.add(each);
+//                        }
+//                    }
+//                }
+            }
+
+        }
+
+
+<span class="fc" id="L270">        ArrayList&lt;Task&gt; result = new ArrayList&lt;&gt;();</span>
+        //if andsearch we need make sure all filters have passed
+<span class="fc bfc" id="L272" title="All 2 branches covered.">        if(andSearch){</span>
+            // datefilter shoud work
+<span class="fc bfc" id="L274" title="All 4 branches covered.">            if(to != null || from != null) {</span>
+<span class="fc bfc" id="L275" title="All 2 branches covered.">                for (Task each : dateFilter) {</span>
+                    //all filter works
+<span class="fc bfc" id="L277" title="All 4 branches covered.">                    if(completed != null &amp;&amp; params != null){</span>
+<span class="fc bfc" id="L278" title="All 4 branches covered.">                        if (completeFilter.contains(each) &amp;&amp; paramFilter.contains(each)) {</span>
+<span class="fc" id="L279">                            result.add(each);</span>
+                        }
+                    // only datefilter and param filter works
+<span class="fc bfc" id="L282" title="All 2 branches covered.">                    }else if(params != null){</span>
+<span class="fc bfc" id="L283" title="All 2 branches covered.">                        if (paramFilter.contains(each)) {</span>
+<span class="fc" id="L284">                            result.add(each);</span>
+                        }
+                    //only datefilter and completed filter works
+<span class="fc bfc" id="L287" title="All 2 branches covered.">                    }else if(completed != null){</span>
+<span class="pc bpc" id="L288" title="1 of 2 branches missed.">                        if (completeFilter.contains(each)) {</span>
+<span class="fc" id="L289">                            result.add(each);</span>
+                        }
+                    }
+
+<span class="fc" id="L293">                }</span>
+            // date is null, complete filter works
+<span class="fc bfc" id="L295" title="All 2 branches covered.">            }else if(completed != null){</span>
+<span class="fc bfc" id="L296" title="All 2 branches covered.">                if(params == null){</span>
+<span class="fc" id="L297">                    result.addAll(completeFilter);</span>
+                }else{
+<span class="fc bfc" id="L299" title="All 2 branches covered.">                    for(Task each: taskList){</span>
+<span class="pc bpc" id="L300" title="2 of 4 branches missed.">                        if(paramFilter.contains(each) &amp;&amp; completeFilter.contains(each)){</span>
+<span class="fc" id="L301">                            result.add(each);</span>
+                        }
+<span class="fc" id="L303">                    }</span>
+                }
+            // only paramfilter works
+            }else{
+<span class="fc" id="L307">                result.addAll(paramFilter);</span>
+            }
+
+        }else{
+<span class="fc" id="L311">            result.addAll(completeFilter);</span>
+<span class="fc bfc" id="L312" title="All 2 branches covered.">            for(Task each: paramFilter){</span>
+<span class="pc bpc" id="L313" title="1 of 2 branches missed.">                if(!result.contains(each)){</span>
+<span class="fc" id="L314">                    result.add(each);</span>
+                }
+<span class="fc" id="L316">            }</span>
+
+<span class="fc bfc" id="L318" title="All 2 branches covered.">            for(Task each: dateFilter){</span>
+<span class="fc bfc" id="L319" title="All 2 branches covered.">                if(!result.contains(each)){</span>
+<span class="fc" id="L320">                    result.add(each);</span>
+                }
+<span class="fc" id="L322">            }</span>
+        }
+<span class="fc" id="L324">        return result;</span>
+
+
+    }
+
+    @Override
+    public void clear() {
+<span class="fc" id="L331">        this.taskList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L332">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

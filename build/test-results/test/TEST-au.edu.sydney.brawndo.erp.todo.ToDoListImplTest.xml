@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" tests="40" skipped="0" failures="0" errors="0" timestamp="2023-03-23T12:08:02" hostname="DESKTOP-V593GE4" time="0.051">
+  <properties/>
+  <testcase name="addExceedLimitTest()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="findAll3CompleteTest()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="findAll3AllNullTest()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="findAll4DateToNullTest()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="addNullAfterNonNullTest()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.002"/>
+  <testcase name="findAll3FromNullTest()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="addTestExtra()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="clearTest()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.0"/>
+  <testcase name="clearTest2()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="findAll2FalseTest()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="findAll4ExceptionTest()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="findOneTest()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="findAll4DateFromNullTest()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.0"/>
+  <testcase name="toSameFromTest()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="findAll3ExceptionTest()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="removeFalseTest()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.002"/>
+  <testcase name="removeTrueTest()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="findAll4ContainTest()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="findAll4AndTestExtra()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="findAll4AndSearchTest1()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.0"/>
+  <testcase name="findAll4AndSearchTest2()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="findAll4AndSearchTest3()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="findAll4AndSearchTest4()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="findOneExtraTest()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="duplicateIdTest()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="findAll4DateTest1()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.0"/>
+  <testcase name="findAll4DateTest2()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.0"/>
+  <testcase name="findAll2TrueTest()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="removeTest()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="findAll3ToNullTest()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="addNullTest()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="nullIdTest()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="addNullAfterNonNullTest2()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="findAll4AndTestExtra2()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="findAll1Test()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.002"/>
+  <testcase name="findAll4ParamTest1()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="findAll4ParamTest2()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <testcase name="findAll4ParamTest3()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.0"/>
+  <testcase name="findAll4CompleteTest()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.0"/>
+  <testcase name="findAll3NormalTest()" classname="au.edu.sydney.brawndo.erp.todo.ToDoListImplTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
